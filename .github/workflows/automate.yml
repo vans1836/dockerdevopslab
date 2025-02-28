@@ -1,0 +1,27 @@
+name: Docker image build
+
+on: push
+
+jobs:
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps: 
+            - uses: actions/checkout@v1
+            - name: testing
+              run: |
+                ls
+                pwd
+                cat main.py
+                cat Dockerfile
+                cat requirements.txt
+
+
+            - name: Build & Push Image
+              run: |
+                echo ${{ secrets.DOCKERTOKEN }} | docker login -u "vans382" --password-stdin
+                docker build -t vans382/devops:v01 .
+                docker push vans382/devops:v01
+
+        
